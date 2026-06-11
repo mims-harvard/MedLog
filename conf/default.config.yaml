@@ -1,0 +1,75 @@
+logging:
+  version: 1
+
+  disable_existing_loggers: False
+
+  formatters:
+    simple:
+      format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: INFO
+      formatter: simple
+      stream: ext://sys.stdout
+
+    info_file_handler:
+      class: logging.handlers.RotatingFileHandler
+      level: INFO
+      formatter: simple
+      filename: info.log
+      maxBytes: 10485760 # 10MB
+      backupCount: 20
+      encoding: utf8
+      delay: True
+
+    rich_handler:
+      class: src.cli.RichHandler
+      rich_tracebacks: True
+      tracebacks_show_locals: False
+
+  loggers:
+    src:
+      level: INFO
+
+    cli:
+      level: INFO
+
+  root:
+    handlers: [rich_handler, info_file_handler]
+
+ucsdh:
+  data_dir: "data/ucsdh"
+  figures_dir: "figures"
+  heatmap_path: "agreement_heatmap.pdf"
+  heatmap_barplot_path: "agreement_heatmap_barplot.pdf"
+  medlog_data_path: "medlog_data.csv"
+  agreement_matrix_path: "agreement_matrix.csv"
+  summary_stats_path: "agreement_summary.csv"
+
+beacon:
+  data_dir: "data/beacon"
+  figures_dir: "figures"
+  # Local path to the assembled parquet (not shipped; see README). The BEACON
+  # fairness command falls back to synthetic data when this file is absent.
+  parquet_path: "assembled.parquet"
+
+vietnam:
+  data_dir: "data/vietnam"
+  figures_dir: "figures"
+  waveforms_dir: "waveforms"
+  medlog_alerts_dir: "medlog_alerts"
+  medlog_notes_dir: "medlog_notes"
+  alert_records_path: "alert_records_translated.csv"
+  clinical_notes_path: "note_output_cleaned_LT.xlsx"
+  cleaned_alert_records_path: "cleaned/alert_records.csv"
+  cleaned_clinical_notes_path: "cleaned/clinical_notes.csv"
+  cleaned_endpoints_path: "cleaned/endpoints.csv"
+  waveform_subject: "24EIc-003-002"
+
+mssm:
+  data_dir: "data/mssm"
+  figures_dir: "figures"
+  cache_dir: "cache"
+  csv_dir: ""
