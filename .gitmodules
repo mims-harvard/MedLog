@@ -1,0 +1,8 @@
+[submodule "spec"]
+	path = spec
+	url = https://github.com/mims-harvard/MedLog-spec.git
+	branch = main
+[submodule "system"]
+	path = system
+	url = https://github.com/mims-harvard/MedLog-system.git
+	branch = main

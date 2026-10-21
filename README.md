@@ -21,6 +21,33 @@ This repository reproduces the figures and summary statistics for the four real-
 
 Each pilot is a CLI subcommand: `uv run cli <pilot> <command>`.
 
+## Specifications and reference implementation
+
+The [MedLog specification](https://github.com/mims-harvard/MedLog-spec) contains the OpenTelemetry (OTEL)
+semantic conventions and OpenAPI specification. The [MedLog system](https://github.com/mims-harvard/MedLog-system)
+provides the reference implementation. Both are included as Git submodules in [`spec/`](spec/) and
+[`system/`](system/), respectively, and are configured to track `main`.
+
+From an existing checkout, initialize the submodules and then fetch the latest `main`:
+
+```bash
+git submodule update --init --recursive
+git submodule update --remote --recursive
+```
+
+Alternatively, include the submodules when cloning:
+
+```bash
+git clone --recurse-submodules https://github.com/mims-harvard/medlog.git
+```
+
+Git records each submodule's checked-out commit in this repository. Initialization restores those recorded
+commits; `--remote` updates to the latest `main`.
+
+To begin working, enter `spec/` or `system/` and follow that submodule's README for setup and development
+instructions. Before editing, check out a branch inside the relevant submodule (for example,
+`git switch -c my-change`), since submodule updates normally leave a detached HEAD.
+
 ## Quick start
 
 ### Prerequisites
@@ -111,6 +138,8 @@ MSSM figures are rendered from pre-aggregated statistics in `data/mssm/cache/`.
 
 ```
 conf/default.config.yaml     Per-pilot paths and settings
+spec/                       MedLog specifications (Git submodule, tracks main)
+system/                     Reference implementation (Git submodule, tracks main)
 src/
   cli/                       Typer CLI (one sub-app per pilot)
   config/                    Pydantic settings loaded from conf/
